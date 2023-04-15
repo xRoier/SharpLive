@@ -1,0 +1,8 @@
+﻿@page "/"
+@using SharpLive.Features
+@inject Config config
+
+<PageTitle>Home</PageTitle>
+@config.GetDiscordClientId()
+
+<a href="/login">Login</a>
