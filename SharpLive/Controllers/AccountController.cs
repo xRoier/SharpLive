@@ -17,6 +17,7 @@ public class AccountController : ControllerBase
     [HttpGet]
     public IActionResult Logout()
     {
-        return SignOut(DiscordAuthenticationDefaults.AuthenticationScheme);
+        HttpContext.SignOutAsync();
+        return Redirect("/");
     }
 }

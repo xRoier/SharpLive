@@ -7,6 +7,7 @@ using SharpLive.Features;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddMudServices();
@@ -21,7 +22,6 @@ builder.Services.AddAuthentication(x =>
     x.DefaultAuthenticateScheme = DiscordAuthenticationDefaults.AuthenticationScheme;
 }).AddCookie().AddDiscord(options =>
 {
-    options.Scope.Add("identify");
     options.Scope.Add("email");
 
     options.ClientId = config.GetDiscordClientId();
@@ -46,9 +46,21 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.MapControllers();
+app.UseAuthorization();
+app.UseAuthentication();
 app.UseStaticFiles();
 app.UseRouting();
+app.MapBlazorHub();
+app.UseCookiePolicy(new CookiePolicyOptions
+{
+    MinimumSameSitePolicy = SameSiteMode.Lax
+});
+app.MapFallbackToPage("/_Host");
+/*app.UseHttpsRedirection();
+app.UseStaticFiles();
 app.UseAuthentication();
+app.UseRouting();
 app.MapControllers();
 app.MapBlazorHub();
 app.UseCookiePolicy(new CookiePolicyOptions
@@ -56,6 +68,6 @@ app.UseCookiePolicy(new CookiePolicyOptions
     Secure = CookieSecurePolicy.Always,
     MinimumSameSitePolicy = SameSiteMode.Strict
 });
-app.MapFallbackToPage("/_Host");
+app.MapFallbackToPage("/_Host");*/
 
 app.Run();

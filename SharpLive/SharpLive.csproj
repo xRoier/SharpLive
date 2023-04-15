@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <PackageReference Include="AspNet.Security.OAuth.Discord" Version="7.0.0" />
+      <PackageReference Include="linq2db" Version="5.1.1" />
       <PackageReference Include="MudBlazor" Version="6.2.2" />
       <PackageReference Include="MudBlazor.Extensions" Version="1.7.34" />
     </ItemGroup>
